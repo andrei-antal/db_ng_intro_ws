@@ -10,16 +10,41 @@
       <img src="{{ poster }}" class="col-4 h-100 pr-4" alt="movie poster" />
       <div class="col-8 card-text text-small">{{ plot }}</div>
     </div>
-    <div>
+    <div [hidden]="commentSaved">
       <textarea
         class="mb-1 w-100"
         placeholder="Comment"
         [(ngModel)]="movieComment"
       ></textarea>
-      <small>{{ wordCount(movieComment) }} words</small>
+      <small
+        [style.color]="
+          movieComment.trim().length === 0 ? 'darkred' : 'darkgreen'
+        "
+      >
+        {{ wordCount(movieComment) }} words
+      </small>
+    </div>
+    <div [hidden]="!commentSaved">
+      <label class="font-weight-bold"> Comment: </label>
+      <p>{{ movieComment }}</p>
     </div>
     <hr />
-    <button class="btn btn-outline-warning mr-2" (click)="movieComment = ''">
+    <button
+      (click)="saveComment()"
+      [disabled]="movieComment.trim().length === 0"
+      class="btn btn-outline-success"
+    >
+      <i
+        class="fa-solid"
+        [ngClass]="commentSaved ? 'fa-pencil-alt' : 'fa-check'"
+      ></i>
+      {{ commentSaved ? "Edit" : "Save" }} comment
+    </button>
+    <button
+      (click)="clearComment()"
+      [disabled]="movieComment === ''"
+      class="btn btn-outline-warning mx-2"
+    >
       <i class="fa-solid fa-ban"></i>
       Clear comment
     </button>

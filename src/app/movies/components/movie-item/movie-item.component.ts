@@ -15,6 +15,7 @@ export class MovieItemComponent {
     'https://resizing.flixster.com/0kbkzWG-fGf5yEZSmLw4VB_SpnQ=/206x305/v2/https://flxt.tmsimg.com/assets/p23069_p_v8_aa.jpg';
 
   movieComment = '';
+  commentSaved = false;
 
   wordCount(comment: string): number {
     if (!comment || comment.length === 0) {
@@ -22,5 +23,14 @@ export class MovieItemComponent {
     } else {
       return comment.trim().replace(/  +/g, ' ').split(' ').length;
     }
+  }
+
+  saveComment(): void {
+    this.commentSaved = !this.commentSaved;
+  }
+
+  clearComment(): void {
+    this.commentSaved = false;
+    this.movieComment = '';
   }
 }
