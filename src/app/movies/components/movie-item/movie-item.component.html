@@ -10,7 +10,7 @@
       <img src="{{ poster }}" class="col-4 h-100 pr-4" alt="movie poster" />
       <div class="col-8 card-text text-small">{{ plot }}</div>
     </div>
-    <div [hidden]="commentSaved">
+    <div *ngIf="!commentSaved; else readonlyComment">
       <textarea
         class="mb-1 w-100"
         placeholder="Comment"
@@ -24,10 +24,12 @@
         {{ wordCount(movieComment) }} words
       </small>
     </div>
-    <div [hidden]="!commentSaved">
-      <label class="font-weight-bold"> Comment: </label>
-      <p>{{ movieComment }}</p>
-    </div>
+    <ng-template #readonlyComment>
+      <div [hidden]="!commentSaved">
+        <label class="font-weight-bold"> Comment: </label>
+        <p>{{ movieComment }}</p>
+      </div>
+    </ng-template>
     <hr />
     <button
       (click)="saveComment()"
