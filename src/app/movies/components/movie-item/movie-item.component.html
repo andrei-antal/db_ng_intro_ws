@@ -10,5 +10,18 @@
       <img src="{{ poster }}" class="col-4 h-100 pr-4" alt="movie poster" />
       <div class="col-8 card-text text-small">{{ plot }}</div>
     </div>
+    <div>
+      <textarea
+        class="mb-1 w-100"
+        placeholder="Comment"
+        [(ngModel)]="movieComment"
+      ></textarea>
+      <small>{{ wordCount(movieComment) }} words</small>
+    </div>
+    <hr />
+    <button class="btn btn-outline-warning mr-2" (click)="movieComment = ''">
+      <i class="fa-solid fa-ban"></i>
+      Clear comment
+    </button>
   </div>
 </div>
