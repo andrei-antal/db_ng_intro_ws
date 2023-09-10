@@ -1,5 +1,14 @@
-<p>{{ title }}</p>
-<p>{{ year }}</p>
-<p>{{ genre }}</p>
-<p>{{ plot }}</p>
-<img src="{{ poster }}" />
+<div class="card mb-4">
+  <div class="card-body">
+    <h4 class="card-title font-weight-bold">
+      {{ title }}
+      <small class="movie-year font-weight-normal">({{ year }})</small>
+    </h4>
+    <div class="card-subtitle mb-2 text-muted text-small">{{ genre }}</div>
+    <hr />
+    <div class="row mb-4 w-100">
+      <img src="{{ poster }}" class="col-4 h-100 pr-4" alt="movie poster" />
+      <div class="col-8 card-text text-small">{{ plot }}</div>
+    </div>
+  </div>
+</div>
