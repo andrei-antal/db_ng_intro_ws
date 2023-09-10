@@ -1,0 +1,9 @@
+<div
+  class="row row-cols-1 row-cols-md-2 justify-content-center"
+  style="row-gap: 1rem"
+>
+  <ngm-movie-item
+    *ngFor="let movie of movies; trackBy: trackByFn"
+    [movie]="movie"
+  ></ngm-movie-item>
+</div>
