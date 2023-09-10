@@ -20,26 +20,26 @@
       <textarea
         class="mb-1 w-100"
         placeholder="Comment"
-        [(ngModel)]="movie.comment"
+        [(ngModel)]="movieComment"
       ></textarea>
       <small
         [style.color]="
-          movie.comment.trim().length === 0 ? 'darkred' : 'darkgreen'
+          movieComment.trim().length === 0 ? 'darkred' : 'darkgreen'
         "
       >
-        {{ wordCount(movie.comment) }} words
+        {{ wordCount(movieComment) }} words
       </small>
     </div>
     <ng-template #readonlyComment>
       <div [hidden]="!commentSaved">
         <label class="font-weight-bold"> Comment: </label>
-        <p>{{ movie.comment }}</p>
+        <p>{{ movieComment }}</p>
       </div>
     </ng-template>
     <hr />
     <button
-      (click)="saveComment(movie.id)"
-      [disabled]="movie.comment.trim().length === 0"
+      (click)="saveComment()"
+      [disabled]="movieComment.trim().length === 0"
       class="btn btn-outline-success"
     >
       <i
@@ -49,8 +49,8 @@
       {{ commentSaved ? "Edit" : "Save" }} comment
     </button>
     <button
-      (click)="clearComment(movie.id)"
-      [disabled]="movie.comment === ''"
+      (click)="clearComment()"
+      [disabled]="movieComment === ''"
       class="btn btn-outline-warning mx-2"
     >
       <i class="fa-solid fa-ban"></i>

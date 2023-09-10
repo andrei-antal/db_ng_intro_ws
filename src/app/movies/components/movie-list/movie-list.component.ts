@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Movie } from '../../model/movie';
+import { CommentUpdate } from '../movie-item/movie-item.component';
 
 @Component({
   selector: 'ngm-movie-list',
@@ -52,5 +53,15 @@ export class MovieListComponent {
 
   trackByFn(_: any, movie: any): number {
     return movie.id;
+  }
+
+  handleCommentUpdate(commentPayload: CommentUpdate): void {
+    const index = this.movies.findIndex(
+      (movie) => movie.id === commentPayload.id
+    );
+    this.movies[index] = {
+      ...this.movies[index],
+      comment: commentPayload.newComment,
+    };
   }
 }

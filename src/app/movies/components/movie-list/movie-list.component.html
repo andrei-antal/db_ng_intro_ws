@@ -4,6 +4,7 @@
 >
   <ngm-movie-item
     *ngFor="let movie of movies; trackBy: trackByFn"
+    (commentUpdate)="handleCommentUpdate($event)"
     [movie]="movie"
   ></ngm-movie-item>
 </div>
