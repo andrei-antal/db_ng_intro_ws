@@ -1,54 +1,65 @@
-<div class="card mb-4">
-  <div class="card-body">
-    <h4 class="card-title font-weight-bold">
-      {{ title }}
-      <small class="movie-year font-weight-normal">({{ year }})</small>
-    </h4>
-    <div class="card-subtitle mb-2 text-muted text-small">{{ genre }}</div>
-    <hr />
-    <div class="row mb-4 w-100">
-      <img src="{{ poster }}" class="col-4 h-100 pr-4" alt="movie poster" />
-      <div class="col-8 card-text text-small">{{ plot }}</div>
-    </div>
-    <div *ngIf="!commentSaved; else readonlyComment">
-      <textarea
-        class="mb-1 w-100"
-        placeholder="Comment"
-        [(ngModel)]="movieComment"
-      ></textarea>
-      <small
-        [style.color]="
-          movieComment.trim().length === 0 ? 'darkred' : 'darkgreen'
-        "
-      >
-        {{ wordCount(movieComment) }} words
-      </small>
-    </div>
-    <ng-template #readonlyComment>
-      <div [hidden]="!commentSaved">
-        <label class="font-weight-bold"> Comment: </label>
-        <p>{{ movieComment }}</p>
+<div
+  class="row row-cols-1 row-cols-md-2 justify-content-center"
+  style="gap: 1rem"
+>
+  <div class="card" *ngFor="let movie of movies; trackBy: trackByFn">
+    <div class="card-body">
+      <h4 class="card-title font-weight-bold">
+        {{ movie.title }}
+        <small class="movie-year font-weight-normal">({{ movie.year }})</small>
+      </h4>
+      <div class="card-subtitle mb-2 text-muted text-small">
+        {{ movie.genre }}
       </div>
-    </ng-template>
-    <hr />
-    <button
-      (click)="saveComment()"
-      [disabled]="movieComment.trim().length === 0"
-      class="btn btn-outline-success"
-    >
-      <i
-        class="fa-solid"
-        [ngClass]="commentSaved ? 'fa-pencil-alt' : 'fa-check'"
-      ></i>
-      {{ commentSaved ? "Edit" : "Save" }} comment
-    </button>
-    <button
-      (click)="clearComment()"
-      [disabled]="movieComment === ''"
-      class="btn btn-outline-warning mx-2"
-    >
-      <i class="fa-solid fa-ban"></i>
-      Clear comment
-    </button>
+      <hr />
+      <div class="row mb-4 w-100">
+        <img
+          src="{{ movie.poster }}"
+          class="col-4 h-100 pr-4"
+          alt="movie poster"
+        />
+        <div class="col-8 card-text text-small">{{ movie.plot }}</div>
+      </div>
+      <div *ngIf="!movie.commentSaved; else readonlyComment">
+        <textarea
+          class="mb-1 w-100"
+          placeholder="Comment"
+          [(ngModel)]="movie.comment"
+        ></textarea>
+        <small
+          [style.color]="
+            movie.comment.trim().length === 0 ? 'darkred' : 'darkgreen'
+          "
+        >
+          {{ wordCount(movie.comment) }} words
+        </small>
+      </div>
+      <ng-template #readonlyComment>
+        <div [hidden]="!movie.commentSaved">
+          <label class="font-weight-bold"> Comment: </label>
+          <p>{{ movie.comment }}</p>
+        </div>
+      </ng-template>
+      <hr />
+      <button
+        (click)="saveComment(movie.id)"
+        [disabled]="movie.comment.trim().length === 0"
+        class="btn btn-outline-success"
+      >
+        <i
+          class="fa-solid"
+          [ngClass]="movie.commentSaved ? 'fa-pencil-alt' : 'fa-check'"
+        ></i>
+        {{ movie.commentSaved ? "Edit" : "Save" }} comment
+      </button>
+      <button
+        (click)="clearComment(movie.id)"
+        [disabled]="movie.comment === ''"
+        class="btn btn-outline-warning mx-2"
+      >
+        <i class="fa-solid fa-ban"></i>
+        Clear comment
+      </button>
+    </div>
   </div>
 </div>
