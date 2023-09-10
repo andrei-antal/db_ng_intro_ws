@@ -21,6 +21,7 @@ export interface CommentUpdate {
 export class MovieItemComponent implements OnChanges {
   @Input() movie!: Movie;
   @Output() commentUpdate = new EventEmitter<CommentUpdate>();
+  @Output() movieDelete = new EventEmitter<string>();
 
   commentSaved = false;
   movieComment = '';

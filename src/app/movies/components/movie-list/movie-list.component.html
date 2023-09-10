@@ -3,8 +3,9 @@
   style="row-gap: 1rem"
 >
   <ngm-movie-item
-    *ngFor="let movie of movies; trackBy: trackByFn"
+    *ngFor="let movie of movieService.movies; trackBy: trackByFn"
     (commentUpdate)="handleCommentUpdate($event)"
+    (movieDelete)="handleMovieDelete($event)"
     [movie]="movie"
   ></ngm-movie-item>
 </div>
