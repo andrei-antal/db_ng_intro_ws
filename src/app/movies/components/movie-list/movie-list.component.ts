@@ -8,6 +8,8 @@ import { MovieService } from '../../services/movie.service';
   styleUrls: ['./movie-list.component.scss'],
 })
 export class MovieListComponent {
+  movies$ = this.movieService.movies$;
+
   constructor(public movieService: MovieService) {}
 
   trackByFn(_: any, movie: any): number {
