@@ -11,9 +11,9 @@ import { MovieDetailComponent } from '../movies/components/movie-detail/movie-de
     CommonModule,
     FormsModule,
     RouterModule.forChild([
-      { path: 'movies', component: MovieListComponent },
-      { path: 'movies/new', component: MovieDetailComponent },
-      { path: 'movies/:id', component: MovieDetailComponent },
+      { path: '', component: MovieListComponent },
+      { path: 'new', component: MovieDetailComponent },
+      { path: ':id', component: MovieDetailComponent },
     ]),
   ],
   declarations: [MovieItemComponent, MovieListComponent, MovieDetailComponent],
