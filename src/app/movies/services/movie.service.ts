@@ -31,4 +31,8 @@ export class MovieService {
       .delete(`${this.#movieApi}/${movieId}`)
       .pipe(tap(() => this.getMovies()));
   }
+
+  getMovie(movieId: string): Observable<Movie> {
+    return this.http.get<Movie>(`${this.#movieApi}/${movieId}`);
+  }
 }
