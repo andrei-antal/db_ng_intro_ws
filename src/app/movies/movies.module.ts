@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MovieItemComponent } from './components/movie-item/movie-item.component';
 import { RouterModule } from '@angular/router';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
@@ -10,6 +10,7 @@ import { MovieDetailComponent } from '../movies/components/movie-detail/movie-de
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       { path: '', component: MovieListComponent },
       { path: 'new', component: MovieDetailComponent },

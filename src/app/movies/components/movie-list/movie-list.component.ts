@@ -1,21 +1,8 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { CommentUpdate } from '../movie-item/movie-item.component';
 import { MovieService } from '../../services/movie.service';
-import {
-  Subject,
-  debounceTime,
-  fromEvent,
-  map,
-  startWith,
-  takeUntil,
-} from 'rxjs';
+import { Subject, debounceTime, startWith, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'ngm-movie-list',
@@ -24,7 +11,7 @@ import {
 })
 export class MovieListComponent implements OnInit, AfterViewInit, OnDestroy {
   movies$ = this.movieService.movies$;
-  @ViewChild('searchField') searchField!: ElementRef;
+  searchField = new FormControl('');
   #destroy$ = new Subject<void>();
 
   constructor(public movieService: MovieService) {}
@@ -34,14 +21,11 @@ export class MovieListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    fromEvent(this.searchField.nativeElement, 'input')
-      .pipe(
-        debounceTime(300),
-        map((ev: any) => ev.target.value),
-        startWith(''),
-        takeUntil(this.#destroy$)
-      )
-      .subscribe((searchTerm) => this.movieService.getMovies(searchTerm));
+    this.searchField.valueChanges
+      .pipe(debounceTime(300), startWith(''), takeUntil(this.#destroy$))
+      .subscribe((searchTerm) => {
+        this.movieService.getMovies(searchTerm as string);
+      });
   }
 
   ngOnDestroy(): void {
