@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { map, switchMap, tap } from 'rxjs';
 import { Movie } from '../../model/movie';
 import { MovieService } from '../../services/movie.service';
-import { genreValidator } from '../../services/movies-validator';
+import { genreAsyncValidator } from '../../services/movies-validator';
 
 @Component({
   selector: 'ngm-movie-detail',
@@ -19,7 +19,9 @@ export class MovieDetailComponent implements OnInit {
     }),
     genre: this.fb.control('', {
       nonNullable: true,
-      validators: [Validators.required, genreValidator],
+      updateOn: 'blur',
+      validators: Validators.required,
+      asyncValidators: genreAsyncValidator(this.movieService),
     }),
     year: this.fb.control('', {
       nonNullable: true,
