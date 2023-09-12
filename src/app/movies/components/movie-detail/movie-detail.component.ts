@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
-import { map, filter, switchMap, tap } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
+import { map, switchMap, tap } from 'rxjs';
 import { Movie } from '../../model/movie';
 import { MovieService } from '../../services/movie.service';
+import { genreValidator } from '../../services/movies-validator';
 
 @Component({
   selector: 'ngm-movie-detail',
@@ -12,10 +13,22 @@ import { MovieService } from '../../services/movie.service';
 })
 export class MovieDetailComponent implements OnInit {
   movieForm = this.fb.group({
-    title: this.fb.control('', { nonNullable: true }),
-    genre: this.fb.control('', { nonNullable: true }),
-    year: this.fb.control('', { nonNullable: true }),
-    plot: this.fb.control('', { nonNullable: true }),
+    title: this.fb.control('', {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
+    genre: this.fb.control('', {
+      nonNullable: true,
+      validators: [Validators.required, genreValidator],
+    }),
+    year: this.fb.control('', {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
+    plot: this.fb.control('', {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
     poster: this.fb.control('', { nonNullable: true }),
   });
   #isNewMovie!: boolean;

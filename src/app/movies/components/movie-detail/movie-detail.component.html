@@ -12,6 +12,14 @@
             placeholder="Enter title"
             formControlName="title"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              movieForm.controls.title.invalid && movieForm.controls.title.dirty
+            "
+          >
+            Title required
+          </div>
         </div>
         <div class="form-group">
           <label for="movieGenre">Genre</label>
@@ -22,6 +30,25 @@
             placeholder="Enter genre"
             formControlName="genre"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              movieForm.controls.genre.errors?.['required'] &&
+              movieForm.controls.genre.dirty
+            "
+          >
+            Genre required
+          </div>
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              !movieForm.controls.genre.errors?.['required'] &&
+              movieForm.controls.genre.errors?.['wrongGenre'] &&
+              movieForm.controls.genre.dirty
+            "
+          >
+            Not a genre category
+          </div>
         </div>
         <div class="form-group">
           <label for="movieYear">Year</label>
@@ -32,6 +59,14 @@
             placeholder="Enter year"
             formControlName="year"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              movieForm.controls.year.invalid && movieForm.controls.year.dirty
+            "
+          >
+            Year required
+          </div>
         </div>
         <div class="form-group">
           <label for="moviePlot">Plot</label>
@@ -42,6 +77,14 @@
             placeholder="Enter plot"
             formControlName="plot"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              movieForm.controls.plot.invalid && movieForm.controls.plot.dirty
+            "
+          >
+            Plot required
+          </div>
         </div>
         <div class="form-group">
           <label for="moviePoster">Poster</label>
@@ -54,7 +97,13 @@
           />
         </div>
         <div class="my-2">
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="movieForm.invalid"
+          >
+            Save
+          </button>
           <a [routerLink]="['/movies']" class="btn btn-outline-secondary mx-2"
             >Cancel</a
           >
