@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, tap } from 'rxjs';
-import { Movie } from '../model/movie';
+import { Observable, Subject, of, tap } from 'rxjs';
+import { EMPTY_MOVIE, Movie } from '../model/movie';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -33,6 +33,17 @@ export class MovieService {
   }
 
   getMovie(movieId: string): Observable<Movie> {
+    if (!movieId) {
+      return of(EMPTY_MOVIE);
+    }
     return this.http.get<Movie>(`${this.#movieApi}/${movieId}`);
+  }
+
+  createMovie(movie: Movie): Observable<any> {
+    return this.http.post(`${this.#movieApi}`, movie);
+  }
+
+  updateMovie(movie: Movie): Observable<any> {
+    return this.http.put(`${this.#movieApi}/${movie.id}`, movie);
   }
 }
